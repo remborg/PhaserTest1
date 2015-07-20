@@ -4,8 +4,8 @@ var upKey;
 var downKey;
 
 function Player(game, x, y){
-  	this.game = game;
     Phaser.Sprite.call(this, game, x, y, 'player');
+	game.add.existing(this);
 }
 
 
@@ -22,6 +22,9 @@ Player.prototype.create= function() {
     this.body.immovable = true;
 
     this.scale.setTo(1, 2);
+
+	this.animations.add('default', [5,4,3,2,1,0,0,0,0,0,0,0,0,0,0]);
+    this.animations.play('default', 20, true);
 
     upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
     downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
