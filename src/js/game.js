@@ -33,14 +33,12 @@ function create() {
 function update() {
     game.physics.arcade.collide(ball, player, ballHitPlayer, null, this);
     game.physics.arcade.collide(emitter, player);
-    // game.physics.arcade.collide(ball.emitter, player);
 }
 
 
 var ballHitPlayer = function(_ball, _player) {
-    console.log('hit');
-
+	_ball.hitPlayer(_player);
     var emitterX = _ball.x - _ball.width / 2 ;
     var emitterY = _ball.y;
-	emitter.testFn(emitterX, emitterY);
+	emitter.ballHitPlayer(emitterX, emitterY);
 }
