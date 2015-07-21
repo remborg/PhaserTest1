@@ -14,7 +14,6 @@ function preload() {
 
 var ball;
 var player;
-var emitter;
 
 function create() {
 
@@ -22,23 +21,16 @@ function create() {
 
 	ball = new Ball(game, game.world.centerX, game.world.centerY);
 
-	//game.add.existing(emitter);
-
 	player.create();
 	ball.create();
-	emitter = new BallHitPlayer(game, 0, 0);
-    // console.log(emitter);
 }
 
 function update() {
     game.physics.arcade.collide(ball, player, ballHitPlayer, null, this);
-    game.physics.arcade.collide(emitter, player);
+//    game.physics.arcade.collide(emitter, player);
 }
 
 
 var ballHitPlayer = function(_ball, _player) {
 	_ball.hitPlayer(_player);
-    var emitterX = _ball.x - _ball.width / 2 ;
-    var emitterY = _ball.y;
-	emitter.ballHitPlayer(emitterX, emitterY);
 }

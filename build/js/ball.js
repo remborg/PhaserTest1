@@ -2,7 +2,7 @@
 
 var ballSpeed = 250;
 var emitter;
-var player;
+var player1;
 
 function Ball(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ball');
@@ -13,12 +13,15 @@ Ball.prototype = Object.create(Phaser.Sprite.prototype);
 Ball.prototype.constructor = Ball;
 
 Ball.prototype.create= function(player) {
+    player1 = player;
     this.anchor.setTo(.5);
 
     game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.velocity.x = - ballSpeed;
     this.body.collideWorldBounds = true;
     this.body.bounce.set(1);
+
+    emitter = new BallHitPlayer(game, 0, 0);
 }
 
 Ball.prototype.hitPlayer = function(_player) {
@@ -46,4 +49,7 @@ Ball.prototype.hitPlayer = function(_player) {
         this.body.velocity.y = 2 + Math.random() * 8;
     }
 
+    var emitterX = this.x - this.width / 2 ;
+    var emitterY = this.y;
+    emitter.ballHitPlayer(_player, emitterX, emitterY);
 }

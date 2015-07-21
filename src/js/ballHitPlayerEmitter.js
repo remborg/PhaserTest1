@@ -21,6 +21,7 @@ BallHitPlayer.prototype.constructor = BallHitPlayer;
 
 BallHitPlayer.prototype.update = function() {
 	Phaser.Particles.Arcade.Emitter.prototype.update.call(this);
+    game.physics.arcade.collide(emitter, this.player);
 
 	var self = this;
     this.forEachAlive(function(p){
@@ -29,7 +30,8 @@ BallHitPlayer.prototype.update = function() {
 
 }
 
-BallHitPlayer.prototype.ballHitPlayer = function (posX, posY) {
+BallHitPlayer.prototype.ballHitPlayer = function (_player, posX, posY) {
+	this.player = _player;
     this.x = posX;
     this.y = posY;
     this.start(true, 500, 100, 10);
