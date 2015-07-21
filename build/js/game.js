@@ -14,20 +14,23 @@ function preload() {
 
 var ball;
 var player;
+var player2;
 
 function create() {
 
 	player = new Player(game, 20, game.world.centerY);
+	player2 = new Player(game, game.world.width - 20, game.world.centerY);
 
 	ball = new Ball(game, game.world.centerX, game.world.centerY);
 
 	player.create();
+	player2.create();
 	ball.create();
 }
 
 function update() {
     game.physics.arcade.collide(ball, player, ballHitPlayer, null, this);
-//    game.physics.arcade.collide(emitter, player);
+    game.physics.arcade.collide(ball, player2, ballHitPlayer, null, this);
 }
 
 
