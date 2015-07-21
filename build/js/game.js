@@ -26,6 +26,7 @@ function create() {
 
 	player.create();
 	ball.create();
+	emitter = new BallHitPlayer(game, 0, 0);
     // console.log(emitter);
 }
 
@@ -38,8 +39,8 @@ function update() {
 
 var ballHitPlayer = function(_ball, _player) {
     console.log('hit');
-    var emmiterX = _ball.x - _ball.width / 2 ;
-    var emmiterY = _ball.y;
 
-	emitter = new BallHitPlayer(game, emmiterX, emmiterY);
+    var emitterX = _ball.x - _ball.width / 2 ;
+    var emitterY = _ball.y;
+	emitter.testFn(emitterX, emitterY);
 }

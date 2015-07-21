@@ -13,8 +13,7 @@ var BallHitPlayer = function(game, x, y){
 
     game.add.existing(this);
 
-    this.start(true, 500, 100, 10);
-    // this.start(false, 500, 100);
+    // this.start(true, 500, 100, 10);
 }
 
 
@@ -35,4 +34,10 @@ BallHitPlayer.prototype.update = function() {
         p.alpha= p.lifespan / self.lifespan;
     });
 
+}
+
+BallHitPlayer.prototype.testFn = function (posX, posY) {
+    this.x = posX;
+    this.y = posY;
+    this.start(true, 500, 100, 10);
 }
