@@ -14,7 +14,7 @@ Ball.prototype.create= function() {
     this.anchor.setTo(.5);
 
     game.physics.enable(this, Phaser.Physics.ARCADE);
-    this.body.velocity.x = - ballSpeed;
+    // this.body.velocity.x = - ballSpeed;
     this.body.collideWorldBounds = true;
     this.body.bounce.set(1);
 
@@ -50,4 +50,17 @@ Ball.prototype.hitPlayer = function(_player) {
     var emitterX = this.x + ((_player.x - this.x) / 2);
     var emitterY = this.y;
     this.emitter.ballHitPlayer(_player, emitterX, emitterY);
+}
+
+Ball.prototype.release = function(velocityX, velocityY) {
+    this.body.velocity.x = ballSpeed * velocityX;
+    this.body.velocity.y = ballSpeed * velocityY;
+
+    if(this.body.velocity.x < 20 && this.body.velocity.x > 0){
+        this.body.velocity.x = 20;
+    }
+
+    if(this.body.velocity.x > -20 && this.body.velocity.x <= 0){
+        this.body.velocity.x = -20;
+    }
 }

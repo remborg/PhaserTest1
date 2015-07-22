@@ -30,13 +30,13 @@ Player.prototype.create= function() {
     downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 }
 
-Player.prototype.update = function(ball) {
+Player.prototype.update = function() {
 
-if(this.body.velocity.y > 0)
-	this.body.velocity.y -= 10;
+	if(this.body.velocity.y > 0)
+		this.body.velocity.y -= 10;
 
-if(this.body.velocity.y < 0)
-	this.body.velocity.y += 10;
+	if(this.body.velocity.y < 0)
+		this.body.velocity.y += 10;
 
     if (upKey.isDown)
     {
@@ -46,5 +46,11 @@ if(this.body.velocity.y < 0)
     {
         this.body.velocity.y = 150;
     }
+}
+
+Player.prototype.reduce = function() {
+	if (this.scale.y > 1){
+		game.add.tween(this.scale).to( { y: this.scale.y - .2 }, 500, "Linear", true);
+	}
 }
 
