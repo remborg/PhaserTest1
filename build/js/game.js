@@ -28,8 +28,8 @@ function create() {
 	ball = new Ball(game, game.world.centerX, game.world.centerY);
 	arrow = new Arrow(game, game.world.centerX, game.world.centerY, ball);
 
-	player.create();
-	player2.create();
+	player.create(Phaser.Keyboard.Q, Phaser.Keyboard.A);
+	player2.create(Phaser.Keyboard.UP, Phaser.Keyboard.DOWN);
 	ball.create();
 
 	arrow.create();

@@ -14,7 +14,6 @@ Ball.prototype.create= function() {
     this.anchor.setTo(.5);
 
     game.physics.enable(this, Phaser.Physics.ARCADE);
-    // this.body.velocity.x = - ballSpeed;
     this.body.collideWorldBounds = true;
     this.body.bounce.set(1);
 
@@ -29,7 +28,7 @@ Ball.prototype.hitPlayer = function(_player) {
     {
         //  Ball is on the half top of player
         diff = _player.y - this.y;
-        pc = ballSpeed * diff;
+        pc = ballSpeed * diff * 1.1;
         this.body.velocity.y = (- pc) / (_player.height / 2);
 
     }
@@ -37,7 +36,7 @@ Ball.prototype.hitPlayer = function(_player) {
     {
         //  Ball is on the half bottom of player
         diff = this.y -_player.y;
-        pc = ballSpeed * diff;
+        pc = ballSpeed * diff * 1.1;
         this.body.velocity.y = ( pc) / (_player.height / 2);
     }
     else
@@ -46,7 +45,6 @@ Ball.prototype.hitPlayer = function(_player) {
         this.body.velocity.y = 2 + Math.random() * 8;
     }
 
-    // var emitterX = this.x - this.width / 2 ;
     var emitterX = this.x + ((_player.x - this.x) / 2);
     var emitterY = this.y;
     this.emitter.ballHitPlayer(_player, emitterX, emitterY);
@@ -56,6 +54,7 @@ Ball.prototype.release = function(velocityX, velocityY) {
     this.body.velocity.x = ballSpeed * velocityX;
     this.body.velocity.y = ballSpeed * velocityY;
 
+    // avoid 'blocked in the middle' ball
     if(this.body.velocity.x < 20 && this.body.velocity.x > 0){
         this.body.velocity.x = 20;
     }

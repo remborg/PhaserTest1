@@ -1,9 +1,8 @@
 'use strict'
 
-var upKey;
-var downKey;
-
 function Player(game, x, y){
+	this.upKey;
+	this.downKey;
     Phaser.Sprite.call(this, game, x, y, 'player');
 	game.add.existing(this);
 }
@@ -12,7 +11,7 @@ function Player(game, x, y){
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
-Player.prototype.create= function() {
+Player.prototype.create= function(keyUp, keyDown) {
 
     game.physics.enable(this, Phaser.Physics.ARCADE);
 
@@ -26,8 +25,8 @@ Player.prototype.create= function() {
 	this.animations.add('default', [5,4,3,2,1,0,0,0,0,0,0,0,0,0,0]);
     this.animations.play('default', 20, true);
 
-    upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    this.upKey = game.input.keyboard.addKey(keyUp);
+    this.downKey = game.input.keyboard.addKey(keyDown);
 }
 
 Player.prototype.update = function() {
@@ -38,11 +37,11 @@ Player.prototype.update = function() {
 	if(this.body.velocity.y < 0)
 		this.body.velocity.y += 10;
 
-    if (upKey.isDown)
+    if (this.upKey.isDown)
     {
         this.body.velocity.y = -150;
     }
-    else if (downKey.isDown)
+    else if (this.downKey.isDown)
     {
         this.body.velocity.y = 150;
     }

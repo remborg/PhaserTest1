@@ -1,8 +1,8 @@
 'use strict'
-var _ball;
+
 function Arrow(game, x, y, ball){
     Phaser.Sprite.call(this, game, x, y, 'arrow');
-    _ball = ball;
+    this.ball = ball;
 	game.add.existing(this);
 }
 
@@ -27,7 +27,7 @@ Arrow.prototype.update = function() {
 			var finalAngle = this.angle + 50;
 		    var tween = game.add.tween(this).to({angle: finalAngle}, 400, Phaser.Easing.Bounce.Out, true);
 		    tween.onComplete.add(function(){
-		    	_ball.release(Math.cos(self.rotation), Math.sin(self.rotation));
+		    	this.ball.release(Math.cos(self.rotation), Math.sin(self.rotation));
 		    	self.kill();
 		    }, this);
 		}
