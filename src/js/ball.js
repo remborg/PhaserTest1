@@ -5,6 +5,8 @@ var isLocked = true;
 
 function Ball(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ball');
+    this.defaultX = x;
+    this.defaultY = y;
     game.add.existing(this);
 }
 
@@ -96,4 +98,9 @@ Ball.prototype.release = function(velocityX, velocityY) {
 
 Ball.prototype.isLocked = function(){
     return isLocked;
+}
+
+Ball.prototype.reInit = function () {
+    this.x = this.defaultX;
+    this.y = this.defaultY;
 }

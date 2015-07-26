@@ -29,7 +29,7 @@ Arrow.prototype.update = function() {
 		    var tween = game.add.tween(this).to({angle: finalAngle}, 400, Phaser.Easing.Bounce.Out, true);
 		    tween.onComplete.add(function(){
 		    	this.ball.release(Math.cos(self.rotation), Math.sin(self.rotation));
-		    	self.kill();
+		    	self.visible = false;
 		    	self.soundFlutter.play();
 		    }, this);
 		}
@@ -44,4 +44,9 @@ Arrow.prototype.releaseBall = function() {
 
 Arrow.prototype.isReleasing = function() {
 	return (this.releaseCalls !== undefined && this.releaseCalls > 0);
+}
+
+Arrow.prototype.reInit = function(){
+	this.releaseCalls = undefined;
+	this.visible = true;
 }

@@ -53,3 +53,6 @@ Player.prototype.reduce = function() {
 	}
 }
 
+Player.prototype.resetSize = function() {
+	game.add.tween(this.scale).to( { y: 2 }, 500, "Linear", true);
+}

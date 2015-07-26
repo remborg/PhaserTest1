@@ -18,6 +18,7 @@ function preload() {
     game.load.audio('hit', ['../sounds/hit.ogg', '../sounds/hit.mp3']);
     game.load.audio('bip', ['../sounds/bip.ogg', '../sounds/bip.mp3']);
     game.load.audio('flutter', ['../sounds/flutter.ogg', '../sounds/flutter.mp3']);
+    game.load.audio('squeak', ['../sounds/squeak.ogg', '../sounds/squeak.mp3']);
 
 	game.player1Won = player1Won;
 	game.player2Won = player2Won;
@@ -62,6 +63,7 @@ function create() {
     spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     sounds.hit = game.add.audio('hit');
+    sounds.squeak = game.add.audio('squeak');
 }
 
 function update() {
@@ -91,12 +93,20 @@ var ballHitPlayer = function(_ball, _player) {
 
 var player1Won = function()	{
 	player1Score++;
-	updateScoreText();
+	reInitGame();
 }
 
 var player2Won = function()	{
 	player2Score++;
+	reInitGame();
+}
+var reInitGame = function() {
 	updateScoreText();
+	player.resetSize();
+	player2.resetSize();
+	ball.reInit();
+	arrow.reInit();
+	sounds.squeak.play();
 }
 
 var updateScoreText = function(){

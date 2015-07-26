@@ -14,10 +14,8 @@ var BallHitPlayer = function(game, x, y){
     game.add.existing(this);
 }
 
-
 BallHitPlayer.prototype = Object.create(Phaser.Particles.Arcade.Emitter.prototype);
 BallHitPlayer.prototype.constructor = BallHitPlayer;
-
 
 BallHitPlayer.prototype.update = function() {
 	Phaser.Particles.Arcade.Emitter.prototype.update.call(this);
