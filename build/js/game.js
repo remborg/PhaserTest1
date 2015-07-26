@@ -13,8 +13,11 @@ function preload() {
 	game.load.spritesheet('player', '../img/player.png', 24, 64);
 	game.load.image('ball', '../img/ball.png');
 	game.load.image('arrow', '../img/arrow.png');
-
 	game.load.image('key', '../img/key.png');
+
+    game.load.audio('hit', ['../sounds/hit.ogg', '../sounds/hit.mp3']);
+    game.load.audio('bip', ['../sounds/bip.ogg', '../sounds/bip.mp3']);
+    game.load.audio('flutter', ['../sounds/flutter.ogg', '../sounds/flutter.mp3']);
 
 	game.player1Won = player1Won;
 	game.player2Won = player2Won;
@@ -32,11 +35,12 @@ var keys = {};
 
 var text;
 
+var sounds = {};
+
 function create() {
     var style = { font: "45px Arial", fill: "#ff0044", align: "center" };
-    text = game.add.text(game.world.centerX, game.world.centerY, "Press space to start", style);
+    text = game.add.text(game.world.centerX, game.world.centerY - 50, "Press space to start", style);
     text.anchor.set(0.5);
-
 
 	player = new Player(game, 30, game.world.centerY);
 	player2 = new Player(game, game.world.width - 30, game.world.centerY);
@@ -56,13 +60,15 @@ function create() {
 	arrow.create();
 
     spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+    sounds.hit = game.add.audio('hit');
 }
 
 function update() {
     game.physics.arcade.collide(ball, player, ballHitPlayer, null, this);
     game.physics.arcade.collide(ball, player2, ballHitPlayer, null, this);
 
-    if (spaceKey.isDown)
+    if (spaceKey.isDown && ball.isLocked() && !arrow.isReleasing())
     {
     	hideIntroKeys();
     	updateScoreText();
@@ -78,6 +84,7 @@ function render() {
 }
 
 var ballHitPlayer = function(_ball, _player) {
+    sounds.hit.play();
 	_ball.hitPlayer(_player);
 	_player.reduce();
 }

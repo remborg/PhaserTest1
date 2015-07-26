@@ -28,6 +28,11 @@ gulp.task('copyImg', function() {
         .pipe(gulp.dest('build/img/'))
         // .pipe(server({ livereload: true, directoryListing: true, open: true })); 
 });
+gulp.task('copySounds', function() {
+    return gulp.src(['src/sounds/**/*'])
+        .pipe(gulp.dest('build/sounds/'))
+        // .pipe(server({ livereload: true, directoryListing: true, open: true })); 
+});
 
 gulp.task('watch', function() {
   // Watch .js files
@@ -38,6 +43,7 @@ gulp.task('watch', function() {
   gulp.watch('src/*.html', ['copyHtml']);
   // Watch image files
   gulp.watch(['src/img/**/*.png', 'src/img/**/*.jpg'], ['copyImg']);
+  gulp.watch(['src/sounds/**/*'], ['copySounds']);
 
 gulp.src('build')
     .pipe(server({
@@ -60,5 +66,5 @@ gulp.src('build')
 // });
 
 
-gulp.task('default', ['sass', 'copyJs', 'copyHtml', 'copyImg', 'watch']);
+gulp.task('default', ['sass', 'copyJs', 'copyHtml', 'copyImg', 'copySounds', 'watch']);
 // gulp.task('bootrun', ['livereload']);

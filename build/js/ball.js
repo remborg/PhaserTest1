@@ -1,6 +1,7 @@
 'use strict'
 
 var ballSpeed = 250;
+var isLocked = true;
 
 function Ball(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ball');
@@ -17,6 +18,8 @@ Ball.prototype.create= function() {
     this.body.bounce.set(1);
 
     this.emitter = new BallHitPlayer(game, 0, 0);
+
+    this.soundBip = game.add.audio('bip');
 }
 
 Ball.prototype.update = function(){
@@ -31,16 +34,19 @@ Ball.prototype.update = function(){
 
     if(ballHitWorldBottom || ballHitWorldTop) {
         this.body.velocity.y *= -1;
+        this.soundBip.play();
     }
 
     if(ballLeaveWorldRight && this.body.velocity.x > 0) {
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
         game.player1Won();
+        isLocked = true;
     } else if(ballLeaveWorldLeft && this.body.velocity.x < 0) {
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
         game.player2Won();
+        isLocked = true;
     }
 }
 
@@ -68,13 +74,13 @@ Ball.prototype.hitPlayer = function(_player) {
         //  Ball is in the middle
         this.body.velocity.y = 2 + Math.random() * 8;
     }
-
     var emitterX = this.x + ((_player.x - this.x) / 2);
     var emitterY = this.y;
     this.emitter.ballHitPlayer(_player, emitterX, emitterY);
 }
 
 Ball.prototype.release = function(velocityX, velocityY) {
+    isLocked = false;
     this.body.velocity.x = ballSpeed * velocityX;
     this.body.velocity.y = ballSpeed * velocityY;
 
@@ -86,4 +92,8 @@ Ball.prototype.release = function(velocityX, velocityY) {
     if(this.body.velocity.x > -20 && this.body.velocity.x <= 0){
         this.body.velocity.x = -20;
     }
+}
+
+Ball.prototype.isLocked = function(){
+    return isLocked;
 }

@@ -13,6 +13,7 @@ Arrow.prototype.constructor = Arrow;
 Arrow.prototype.create= function() {
     game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.anchor.setTo(-1, 0.5);
+    this.soundFlutter = game.add.audio('flutter');
 }
 
 Arrow.prototype.update = function() {
@@ -29,6 +30,7 @@ Arrow.prototype.update = function() {
 		    tween.onComplete.add(function(){
 		    	this.ball.release(Math.cos(self.rotation), Math.sin(self.rotation));
 		    	self.kill();
+		    	self.soundFlutter.play();
 		    }, this);
 		}
 	}
@@ -38,4 +40,8 @@ Arrow.prototype.releaseBall = function() {
 	if(this.releaseCalls === undefined){
 		this.releaseCalls = game.rnd.between(25, 75);
 	}
+}
+
+Arrow.prototype.isReleasing = function() {
+	return (this.releaseCalls !== undefined && this.releaseCalls > 0);
 }
