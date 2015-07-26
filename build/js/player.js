@@ -17,7 +17,7 @@ Player.prototype.create= function(keyUp, keyDown) {
 
 	this.anchor.setTo(.5);
 	this.body.collideWorldBounds = true;
-    this.body.bounce.set(1);
+    this.body.bounce.set(0);
     this.body.immovable = true;
 
     this.scale.setTo(1, 2);

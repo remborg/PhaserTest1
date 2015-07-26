@@ -14,7 +14,6 @@ Ball.prototype.create= function() {
     this.anchor.setTo(.5);
 
     game.physics.enable(this, Phaser.Physics.ARCADE);
-    // this.body.collideWorldBounds = true;
     this.body.bounce.set(1);
 
     this.emitter = new BallHitPlayer(game, 0, 0);
@@ -37,11 +36,11 @@ Ball.prototype.update = function(){
     if(ballLeaveWorldRight && this.body.velocity.x > 0) {
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
-        game.player2Won();
+        game.player1Won();
     } else if(ballLeaveWorldLeft && this.body.velocity.x < 0) {
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
-        game.player1Won();
+        game.player2Won();
     }
 }
 
