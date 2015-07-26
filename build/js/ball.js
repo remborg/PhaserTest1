@@ -14,10 +14,35 @@ Ball.prototype.create= function() {
     this.anchor.setTo(.5);
 
     game.physics.enable(this, Phaser.Physics.ARCADE);
-    this.body.collideWorldBounds = true;
+    // this.body.collideWorldBounds = true;
     this.body.bounce.set(1);
 
     this.emitter = new BallHitPlayer(game, 0, 0);
+}
+
+Ball.prototype.update = function(){
+    Phaser.Sprite.prototype.update.call(this);
+    var halfHeight = this.height / 2;
+
+    var ballHitWorldBottom = this.y > game.world.height - halfHeight && this.body.velocity.y > 0;
+    var ballHitWorldTop = this.y < halfHeight && this.body.velocity.y < 0;
+
+    var ballLeaveWorldLeft = this.x < - halfHeight;
+    var ballLeaveWorldRight = this.x > game.world.width + halfHeight;
+
+    if(ballHitWorldBottom || ballHitWorldTop) {
+        this.body.velocity.y *= -1;
+    }
+
+    if(ballLeaveWorldRight && this.body.velocity.x > 0) {
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+        game.player2Won();
+    } else if(ballLeaveWorldLeft && this.body.velocity.x < 0) {
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+        game.player1Won();
+    }
 }
 
 Ball.prototype.hitPlayer = function(_player) {

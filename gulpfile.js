@@ -61,4 +61,4 @@ gulp.src('build')
 
 
 gulp.task('default', ['sass', 'copyJs', 'copyHtml', 'copyImg', 'watch']);
-gulp.task('bootrun', ['livereload']);
+// gulp.task('bootrun', ['livereload']);
