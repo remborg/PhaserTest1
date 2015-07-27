@@ -103,4 +103,5 @@ Ball.prototype.isLocked = function(){
 Ball.prototype.reInit = function () {
     this.x = this.defaultX;
     this.y = this.defaultY;
+    game.add.tween(this.scale).from({ x: 5, y:5 }, 250, Phaser.Easing.Sinusoidal.In, true);
 }
