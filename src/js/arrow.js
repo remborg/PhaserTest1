@@ -28,7 +28,7 @@ Arrow.prototype.update = function() {
 			var finalAngle = this.angle + 50;
 		    var tween = game.add.tween(this).to({angle: finalAngle}, 400, Phaser.Easing.Bounce.Out, true);
 		    tween.onComplete.add(function(){
-		    	this.ball.release(Math.cos(self.rotation), Math.sin(self.rotation));
+		    	this.ball.release(self.rotation);
 		    	self.visible = false;
 		    	self.soundFlutter.play();
 		    }, this);

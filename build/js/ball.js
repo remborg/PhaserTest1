@@ -2,6 +2,7 @@
 
 var ballSpeed = 250;
 var isLocked = true;
+var maxBounceAngle = Math.PI / 3;
 
 function Ball(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ball');
@@ -54,37 +55,23 @@ Ball.prototype.update = function(){
 
 Ball.prototype.hitPlayer = function(_player) {
 
-	var diff = 1, pc;
+	var diff = _player.y - this.y;
+    var pc = (diff * 100) / (_player.height / 2);
+    var rotation = maxBounceAngle * pc / 100;
+    if(this.body.velocity.x > 0) {
+        this.rotateTo(- rotation);
+    } else {
+        this.rotateTo(Math.PI + rotation);
+    }
 
-    if (this.y < _player.y)
-    {
-        //  Ball is on the half top of player
-        diff = _player.y - this.y;
-        pc = ballSpeed * diff * 1.1;
-        this.body.velocity.y = (- pc) / (_player.height / 2);
-
-    }
-    else if (this.y > _player.y)
-    {
-        //  Ball is on the half bottom of player
-        diff = this.y -_player.y;
-        pc = ballSpeed * diff * 1.1;
-        this.body.velocity.y = ( pc) / (_player.height / 2);
-    }
-    else
-    {
-        //  Ball is in the middle
-        this.body.velocity.y = 2 + Math.random() * 8;
-    }
     var emitterX = this.x + ((_player.x - this.x) / 2);
     var emitterY = this.y;
     this.emitter.ballHitPlayer(_player, emitterX, emitterY);
 }
 
-Ball.prototype.release = function(velocityX, velocityY) {
+Ball.prototype.release = function(rotation) {
     isLocked = false;
-    this.body.velocity.x = ballSpeed * velocityX;
-    this.body.velocity.y = ballSpeed * velocityY;
+    this.rotateTo(rotation);
 
     // avoid 'blocked in the middle' ball
     if(this.body.velocity.x < 20 && this.body.velocity.x > 0){
@@ -104,4 +91,10 @@ Ball.prototype.reInit = function () {
     this.x = this.defaultX;
     this.y = this.defaultY;
     game.add.tween(this.scale).from({ x: 5, y:5 }, 250, Phaser.Easing.Sinusoidal.In, true);
+}
+
+Ball.prototype.rotateTo = function(rotation){
+
+    this.body.velocity.x = ballSpeed * Math.cos(rotation);
+    this.body.velocity.y = ballSpeed * Math.sin(rotation);
 }
