@@ -10,15 +10,15 @@ function preload() {
 	game.load.script('arrow.js', 'js/arrow.js');
 	game.load.script('key.js', 'js/key.js');
 
-	game.load.spritesheet('player', '../img/player.png', 24, 64);
-	game.load.image('ball', '../img/ball.png');
-	game.load.image('arrow', '../img/arrow.png');
-	game.load.image('key', '../img/key.png');
+	game.load.spritesheet('player', 'img/player.png', 24, 64);
+	game.load.image('ball', 'img/ball.png');
+	game.load.image('arrow', 'img/arrow.png');
+	game.load.image('key', 'img/key.png');
 
-    game.load.audio('hit', ['../sounds/hit.ogg', '../sounds/hit.mp3']);
-    game.load.audio('bip', ['../sounds/bip.ogg', '../sounds/bip.mp3']);
-    game.load.audio('flutter', ['../sounds/flutter.ogg', '../sounds/flutter.mp3']);
-    game.load.audio('squeak', ['../sounds/squeak.ogg', '../sounds/squeak.mp3']);
+    game.load.audio('hit', ['sounds/hit.ogg', 'sounds/hit.mp3']);
+    game.load.audio('bip', ['sounds/bip.ogg', 'sounds/bip.mp3']);
+    game.load.audio('flutter', ['sounds/flutter.ogg', 'sounds/flutter.mp3']);
+    game.load.audio('squeak', ['sounds/squeak.ogg', 'sounds/squeak.mp3']);
 
 	game.player1Won = player1Won;
 	game.player2Won = player2Won;

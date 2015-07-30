@@ -14,7 +14,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('copyJs', function() {
-    return gulp.src('src/js/**/*.js')
+    return gulp.src(['src/js/*.js', 'src/js/vendor/**/build/*.min.js', '!src/js/vendor/**/build/custom'])
         .pipe(gulp.dest('build/js/'))
         // .pipe(server({ livereload: true, directoryListing: true, open: true }));
 });

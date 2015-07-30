@@ -1,6 +1,6 @@
 'use strict'
 
-var ballSpeed = 250;
+var ballSpeed = 320;
 var isLocked = true;
 var maxBounceAngle = Math.PI / 3;
 
